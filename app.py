@@ -50,19 +50,79 @@ def main():
     model, scaler = load_model_and_scaler()
     
     st.sidebar.header("Enter Values for Prediction")
-    time = st.sidebar.slider("Time", min_value=0, max_value=100)
-    age = st.sidebar.slider("Age", min_value=0, max_value=100)
-    ejection_fraction = st.sidebar.slider("Ejection Fraction", min_value=0, max_value=100)
-    sodium = st.sidebar.slider("Sodium", min_value=0, max_value=200)
-    creatinine = st.sidebar.slider("Creatinine", min_value=0, max_value=200)
-    platelets = st.sidebar.slider("Platelets", min_value=0, max_value=200)
-    cpk = st.sidebar.slider("CPK", min_value=0, max_value=200)
-    gender = 1 if st.sidebar.selectbox("Gender", ["Male", "Female"]) == "Male" else 0
-    smoking = 1 if st.sidebar.selectbox("Smoking", ["Yes", "No"]) == "Yes" else 0
-    diabetes = 1 if st.sidebar.selectbox("Diabetes", ["Yes", "No"]) == "Yes" else 0
-    anaemia = 1 if st.sidebar.selectbox("Anaemia", ["Yes", "No"]) == "Yes" else 0
-    bp_mapping = {"High": 2, "Normal": 1, "Low": 0}
-    bp = bp_mapping[st.sidebar.selectbox("BP", ["High", "Normal", "Low"])]
+
+# Time: Typically ranges from 0 days to several years (converted to days)
+time = st.sidebar.slider(
+    "Time (days since diagnosis)", min_value=0, max_value=3650, 
+    help="Time in days since diagnosis (e.g., up to 10 years)"
+)
+
+# Age: Based on human lifespan, typically 0-120 years
+age = st.sidebar.slider(
+    "Age (years)", min_value=0, max_value=120, 
+    help="Age of the patient in years"
+)
+
+# Ejection Fraction: Normal range is 50-70%; less than 40% indicates heart failure
+ejection_fraction = st.sidebar.slider(
+    "Ejection Fraction (%)", min_value=10, max_value=80, 
+    help="Percentage of blood leaving the heart each time it contracts (normal: 50-70%)"
+)
+
+# Sodium: Normal serum sodium levels range from 135 to 145 mEq/L
+sodium = st.sidebar.slider(
+    "Sodium (mEq/L)", min_value=120, max_value=160, 
+    help="Serum sodium level (normal: 135-145 mEq/L)"
+)
+
+# Creatinine: Normal levels are 0.5 to 1.2 mg/dL; higher levels indicate kidney issues
+creatinine = st.sidebar.slider(
+    "Creatinine (mg/dL)", min_value=0.3, max_value=10.0, 
+    help="Serum creatinine level (normal: 0.5-1.2 mg/dL; higher values may indicate kidney dysfunction)"
+)
+
+# Platelets: Normal platelet count is 150,000 to 450,000 per microliter
+platelets = st.sidebar.slider(
+    "Platelets (kilo/mL)", min_value=50, max_value=800, 
+    help="Platelet count in kiloplatelets/mL (normal: 150-450)"
+)
+
+# CPK: Normal creatine phosphokinase levels are 20-200 U/L
+cpk = st.sidebar.slider(
+    "CPK (U/L)", min_value=10, max_value=2000, 
+    help="Creatine phosphokinase level (normal: 20-200 U/L; elevated levels may indicate muscle damage)"
+)
+
+# Gender: 0 = Female, 1 = Male
+gender = st.sidebar.selectbox(
+    "Gender", ["Male", "Female"], 
+    help="Gender of the patient"
+)
+
+# Smoking: Binary input, 1 = Yes, 0 = No
+smoking = st.sidebar.selectbox(
+    "Smoking", ["Yes", "No"], 
+    help="Smoking status"
+)
+
+# Diabetes: Binary input, 1 = Yes, 0 = No
+diabetes = st.sidebar.selectbox(
+    "Diabetes", ["Yes", "No"], 
+    help="Diabetes status"
+)
+
+# BP: Categorized into High, Normal, or Low
+bp = st.sidebar.selectbox(
+    "Blood Pressure", ["High", "Normal", "Low"], 
+    help="Blood pressure status"
+)
+
+# Anaemia: Binary input, 1 = Yes, 0 = No
+anaemia = st.sidebar.selectbox(
+    "Anaemia", ["Yes", "No"], 
+    help="Anaemia status"
+)
+
 
     # Scale the input
     input_data = scaler.transform([[time, age, ejection_fraction, sodium, creatinine, platelets, cpk, gender, smoking, diabetes, bp, anaemia]])
