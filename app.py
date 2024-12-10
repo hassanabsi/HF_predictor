@@ -54,13 +54,13 @@ def main():
     st.sidebar.header("Enter Values for Prediction")
 
     # Input parameters
-    time = st.sidebar.slider("Time (days since diagnosis)", min_value=0, max_value=3650, help="Time in days since diagnosis")
+    time = st.sidebar.slider("Time (days since diagnosis)", min_value=0, max_value=365, help="Time in days since diagnosis")
     age = st.sidebar.slider("Age (years)", min_value=0, max_value=120, help="Age of the patient in years")
     ejection_fraction = st.sidebar.slider("Ejection Fraction (%)", min_value=10, max_value=80, help="Heart ejection fraction percentage")
     sodium = st.sidebar.slider("Sodium (mEq/L)", min_value=120, max_value=160, help="Serum sodium level")
     creatinine = st.sidebar.slider("Creatinine (mg/dL)", min_value=0.3, max_value=10.0, help="Serum creatinine level")
-    platelets = st.sidebar.slider("Platelets (kilo/mL)", min_value=50, max_value=800, help="Platelet count in kilo/mL")
-    cpk = st.sidebar.slider("CPK (U/L)", min_value=10, max_value=2000, help="Creatine phosphokinase level")
+    platelets = st.sidebar.slider("Platelets (kilo/mL)", min_value=10, max_value=1000, help="Platelet count in kilo/mL")
+    cpk = st.sidebar.slider("CPK (U/L)", min_value=0, max_value=1500, help="Creatine phosphokinase level")
     gender = st.sidebar.selectbox("Gender", ["Male", "Female"], help="Gender of the patient")
     smoking = st.sidebar.selectbox("Smoking", ["Yes", "No"], help="Smoking status")
     diabetes = st.sidebar.selectbox("Diabetes", ["Yes", "No"], help="Diabetes status")
